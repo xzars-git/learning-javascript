@@ -1,0 +1,36 @@
+🔹 Mekanisme Prisma + Supabase Tanpa Backend
+Biasanya ada dua kemungkinan cara:
+
+1️⃣ Pakai Next.js (Server Components & API Routes)
+Kalau aplikasi kamu pakai Next.js, Prisma bisa langsung digunakan di Server Components atau API Routes (tanpa backend terpisah).
+Jadi, saat frontend butuh data, dia langsung panggil fungsi di Next.js yang pakai Prisma buat query database Supabase.
+🔹 Contoh mekanismenya:
+✅ React (Next.js) → Query langsung ke database pakai Prisma → Data ditampilkan di UI
+
+📌 Kelebihan:
+
+Lebih simpel tanpa perlu setup backend terpisah
+Performa lebih cepat karena berjalan di server-side Next.js
+📌 Kekurangan:
+
+Tidak bisa jalan di client-side (browser langsung) karena Prisma butuh server environment
+2️⃣ Pakai Supabase SDK di Frontend Langsung
+Supabase punya SDK sendiri, jadi React bisa langsung nge-hit database tanpa perlu backend atau Prisma.
+Kalau kemarin kamu pakai Prisma & Supabase tanpa backend, mungkin Prisma cuma buat generate model & query database, tapi fetch-nya langsung dari Supabase SDK.
+🔹 Contoh mekanismenya:
+✅ React (Client-side) → Panggil API Supabase langsung via SDK → Data diambil dari Supabase
+
+📌 Kelebihan:
+
+Bisa jalan langsung di frontend tanpa perlu server/backend
+Supabase sudah punya built-in authentication dan storage
+📌 Kekurangan:
+
+Kurang fleksibel kalau aplikasi makin besar (karena logic semua di frontend)
+Kurang aman, karena API key bisa terlihat di frontend (harus hati-hati dengan permissions)
+🔥 Kesimpulan
+Kalau kamu tidak pakai backend, tapi pakai Prisma & Supabase, mekanismenya bisa seperti ini:
+
+Pakai Next.js Server Components → Prisma jalan di server-side Next.js untuk query Supabase.
+Pakai Supabase SDK langsung di React → React langsung fetch data dari Supabase API tanpa backend.
+⚡ Penting: Kalau aplikasi kamu jalan sepenuhnya di frontend, lebih baik pakai Supabase SDK langsung daripada Prisma. Prisma lebih cocok dipakai di server-side (Next.js API Routes, Express, atau NestJS). 🚀

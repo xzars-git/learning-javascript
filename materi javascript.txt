@@ -1,0 +1,151 @@
+Apa itu Website ? 
+
+Dibuat dengan program dan dipanggil dengan Domain.
+
+Apa itu HTTP Protocol
+
+HTTP : Hypertext Transfer Protocol
+1. The HTTP is an application layer protocol that allows web-based application to communicate and exchange data
+2. HTTP is the messenger of the web
+3. It's used to deliver contents, for example images, videos, audios, docs, etc
+
+Three important things about the HTTP
+1. HTTP is connectionless: after making the request, the client disconnect from the server, then when the response is ready the server re-establish the connection again and deliver the response
+
+📌 1. HTML (HyperText Markup Language)
+HTML adalah dasar dari semua halaman web. Mirip dengan bagaimana Flutter menggunakan widget, HTML membentuk struktur dasar sebuah website.
+
+👉 Hal yang Wajib Dipahami:
+✅ Struktur dasar HTML (<!DOCTYPE html>, <html>, <head>, <body>)
+✅ Tag penting: <div>, <p>, <h1> - <h6>, <a>, <img>, <form>, <input>, <button>, <table>
+✅ Semantic HTML (<header>, <nav>, <section>, <article>, <footer>)
+✅ Forms dan Input Fields (<input>, <select>, <textarea>, <button>)
+
+📌 Contoh Struktur HTML Dasar
+html
+Copy
+Edit
+
+📌 2. CSS (Cascading Style Sheets)
+CSS digunakan untuk mempercantik tampilan web. Di Flutter, kamu pakai BoxDecoration, di web pakai CSS.
+
+👉 Hal yang Wajib Dipahami:
+✅ Selector & Properti Dasar: color, background, font-size, margin, padding
+✅ CSS Box Model: margin, border, padding, content
+✅ Flexbox (untuk layout responsif)
+✅ Grid Layout (alternatif Flexbox)
+✅ Responsive Design (media queries)
+
+📌 Contoh CSS Dasar
+css
+Copy
+Edit
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: blue;
+}
+
+button {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+}
+📌 Contoh Media Query (Responsive)
+css
+Copy
+Edit
+@media (max-width: 600px) {
+  body {
+    background-color: lightgray;
+  }
+}
+
+📌 3. JavaScript (JS)
+JavaScript membuat website interaktif. Kalau di Flutter pakai Dart untuk logika aplikasi, di web pakai JavaScript.
+
+👉 Hal yang Wajib Dipahami:
+✅ Variabel & Tipe Data (let, const, var)
+✅ Fungsi & Event Listener (onClick, onChange)
+✅ DOM Manipulation (menambahkan elemen ke halaman secara dinamis)
+✅ Fetch API (mengambil data dari backend)
+✅ ES6+ (Arrow Function, Destructuring, Spread Operator, Async/Await, Module)
+
+📌 Contoh JavaScript Dasar
+js
+Copy
+Edit
+const button = document.querySelector("button");
+
+button.addEventListener("click", function() {
+  alert("Tombol diklik!");
+});
+📌 Contoh Fetch API (Ambil Data dari Server)
+js
+Copy
+Edit
+fetch("https://jsonplaceholder.typicode.com/users")
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
+
+📌 5. Responsive Web Design
+Pastikan website bisa tampil baik di mobile & desktop.
+
+Gunakan media queries di CSS
+Gunakan Flexbox atau CSS Grid
+Gunakan rem/em daripada px (untuk ukuran yang lebih fleksibel)
+
+Framework Front-End (React.js)
+Di interview sebagai Front-End Developer, React.js kemungkinan besar akan ditanyakan.
+
+👉 Dasar yang Harus Dipahami di React:
+✅ JSX (cara menulis UI di React)
+✅ Components & Props (mirip Widget di Flutter)
+✅ State & Hooks (useState, useEffect)
+✅ Event Handling (onClick, onChange)
+✅ Routing dengan react-router-dom
+✅ Fetch API dengan useEffect
+✅ CSS di React (Tailwind, Styled Components, CSS Modules)
+
+📌 6. API & JSON
+Sebagai Front-End, kamu akan sering berkomunikasi dengan Backend untuk menampilkan data ke UI.
+
+API bisa berbentuk REST API atau GraphQL
+Data biasanya dalam format JSON
+📌 Contoh JSON Data
+json
+Copy
+Edit
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+📌 Cara Mengambil API di React
+jsx
+Copy
+Edit
+import { useEffect, useState } from "react";
+
+const App = () => {
+  const [users, setUsers] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then(response => response.json())
+      .then(data => setUsers(data));
+  }, []);
+
+  return (
+    <div>
+      <h1>Users</h1>
+      {users.map(user => (
+        <p key={user.id}>{user.name}</p>
+      ))}
+    </div>
+  );
+};

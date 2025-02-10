@@ -1,0 +1,337 @@
+🔹 1. Pisahkan UI, Logic, dan Data (Clean Architecture)
+Jangan taruh semua kode dalam satu file atau satu widget. Pisahkan layer biar lebih terstruktur:
+
+Presentation Layer (UI) → Widget & tampilan
+Domain Layer (Logic) → Business logic (Use Case, Service)
+Data Layer (API, Database) → Fetch data dari API atau database
+📌 Contoh Struktur Folder Clean Architecture di Flutter:
+
+bash
+Copy
+Edit
+lib/
+│── core/               # Helpers, Constants, Shared Code
+│── data/               # API, Database, Repositories
+│── domain/             # Use Cases, Business Logic
+│── presentation/       # UI & Widgets
+│── main.dart           # Entry Point
+🔹 2. Jangan Taruh Business Logic di Widget
+Widget cuma buat UI, jangan taruh logic di dalamnya.
+Pakai State Management supaya lebih bersih, contohnya:
+
+❌ Salah (Logic di Widget)
+dart
+Copy
+Edit
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  int counter = 0;
+
+  void increment() {
+    setState(() {
+      counter++;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(counter.toString()),
+        ElevatedButton(onPressed: increment, child: Text("Tambah"))
+      ],
+    );
+  }
+}
+✅ Benar (Pisah Logic & UI)
+dart
+Copy
+Edit
+class CounterNotifier extends ChangeNotifier {
+  int counter = 0;
+
+  void increment() {
+    counter++;
+    notifyListeners();
+  }
+}
+
+class MyWidget extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final counter = Provider.of<CounterNotifier>(context);
+    
+    return Column(
+      children: [
+        Text(counter.counter.toString()),
+        ElevatedButton(
+          onPressed: () => counter.increment(),
+          child: Text("Tambah"),
+        )
+      ],
+    );
+  }
+}
+📌 Kenapa lebih baik?
+
+UI lebih bersih, cuma fokus ke tampilan
+Logic lebih gampang di-maintain
+🔹 3. Gunakan Widget yang Reusable
+Kalau ada UI yang sering dipakai ulang, bikin widget sendiri!
+
+❌ Salah (Banyak UI Duplikat)
+dart
+Copy
+Edit
+ElevatedButton(
+  onPressed: () {},
+  child: Text("Submit"),
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.blue,
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+  ),
+);
+✅ Benar (Buat Widget Reusable)
+dart
+Copy
+Edit
+class CustomButton extends StatelessWidget {
+  final String text;
+  final VoidCallback onPressed;
+
+  const CustomButton({required this.text, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+      onPressed: onPressed,
+      child: Text(text),
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.blue,
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      ),
+    );
+  }
+}
+📌 Kenapa lebih baik?
+
+Tinggal pakai CustomButton(text: "Submit", onPressed: () {}) di mana-mana
+Gampang diubah kalau ada perubahan desain
+🔹 4. Gunakan Proper State Management
+Kalau aplikasi kecil, pakai setState().
+Kalau besar, pakai Provider, Riverpod, Bloc, atau GetX supaya lebih clean.
+
+Contoh pakai Provider buat state management:
+
+dart
+Copy
+Edit
+class CounterProvider extends ChangeNotifier {
+  int counter = 0;
+
+  void increment() {
+    counter++;
+    notifyListeners();
+  }
+}
+Lalu di UI:
+
+dart
+Copy
+Edit
+final counter = Provider.of<CounterProvider>(context);
+📌 Kenapa lebih baik?
+
+Lebih terstruktur
+Gampang dikembangkan ke aplikasi yang lebih kompleks
+🔹 5. Gunakan Linter & Code Formatter
+Pakai linting rules biar kodenya tetap rapi:
+
+Install package lint atau flutter_lints
+Gunakan dart format buat auto-format kode
+yaml
+Copy
+Edit
+dev_dependencies:
+  flutter_lints: ^2.0.1
+📌 Kenapa lebih baik?
+
+Biar konsisten sama best practice
+Mudah dibaca oleh tim lain
+🔥 Kesimpulan
+Clean code di Flutter itu tentang kode yang rapi, modular, dan mudah di-maintain.
+Tips utama:
+✅ Pisahkan UI, Logic, dan Data
+✅ Jangan taruh business logic di widget
+✅ Gunakan widget reusable
+✅ Pakai state management yang sesuai
+✅ Gunakan linting & formatting
+
+Kalau kamu mau serius belajar clean architecture di Flutter, bisa juga pakai Flutter Clean Architecture + Bloc. 🚀
+
+
+
+🔹 Apa Itu Repository Pattern di Flutter?
+Repository Pattern itu jembatan antara data source (API, database, local storage) dengan business logic.
+
+📌 Kenapa Perlu Repository Pattern?
+✅ Pisah data layer dari UI & Logic → Widget nggak tahu dari mana data berasal
+✅ Gampang ganti data source → Misal, ganti dari API ke lokal database tanpa ubah banyak kode
+✅ Bisa dites lebih mudah → Karena repository bisa di-mock pas unit testing
+
+🔹 Struktur Repository Pattern di Flutter
+Biasanya strukturnya gini:
+
+bash
+Copy
+Edit
+lib/
+│── core/               # Helpers, Constants, Shared Code
+│── data/
+│   ├── models/         # Model Data
+│   ├── sources/        # Remote & Local Data Source
+│   ├── repositories/   # Repository Implementation
+│── domain/
+│   ├── repositories/   # Repository Interface
+│   ├── usecases/       # Business Logic
+│── presentation/       # UI & Widgets
+│── main.dart           # Entry Point
+📌 Intinya, pisah antara UI, logic, dan data source.
+
+🔹 Contoh Implementasi Repository Pattern di Flutter
+Misal kita mau ambil data users dari API, kita pakai repository pattern.
+
+1️⃣ Buat Model Data (UserModel)
+dart
+Copy
+Edit
+class UserModel {
+  final String id;
+  final String name;
+  final String email;
+
+  UserModel({required this.id, required this.name, required this.email});
+
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'],
+      name: json['name'],
+      email: json['email'],
+    );
+  }
+}
+2️⃣ Buat Data Source (UserRemoteDataSource)
+Kalau di Flutter biasanya pakai Dio buat nge-hit API.
+
+dart
+Copy
+Edit
+import 'package:dio/dio.dart';
+import '../models/user_model.dart';
+
+class UserRemoteDataSource {
+  final Dio dio;
+
+  UserRemoteDataSource(this.dio);
+
+  Future<List<UserModel>> fetchUsers() async {
+    final response = await dio.get('https://jsonplaceholder.typicode.com/users');
+    return (response.data as List).map((json) => UserModel.fromJson(json)).toList();
+  }
+}
+📌 Kenapa pakai ini?
+
+Supaya kalau nanti API berubah, kita cuma ubah di sini
+Bisa ganti dari API ke database tanpa ngubah logic di UI
+3️⃣ Buat Repository Interface (UserRepository)
+Di domain layer, kita bikin interface repository biar bisa gampang di-mock pas testing.
+
+dart
+Copy
+Edit
+import '../models/user_model.dart';
+
+abstract class UserRepository {
+  Future<List<UserModel>> getUsers();
+}
+📌 Kenapa harus ada interface?
+
+Biar gampang diubah atau ditest pakai Mock Data
+Bisa ganti dari API ke database tanpa ganggu UI & Logic
+4️⃣ Buat Implementasi Repository (UserRepositoryImpl)
+dart
+Copy
+Edit
+import '../sources/user_remote_data_source.dart';
+import '../../domain/repositories/user_repository.dart';
+import '../models/user_model.dart';
+
+class UserRepositoryImpl implements UserRepository {
+  final UserRemoteDataSource remoteDataSource;
+
+  UserRepositoryImpl(this.remoteDataSource);
+
+  @override
+  Future<List<UserModel>> getUsers() async {
+    return await remoteDataSource.fetchUsers();
+  }
+}
+📌 Kenapa ini penting?
+
+UI nggak langsung manggil API, tapi lewat repository
+Bisa diganti kalau nanti pakai database atau local storage
+5️⃣ Panggil Repository di UI dengan State Management
+Di UI, kita pakai Provider buat manggil repository.
+
+dart
+Copy
+Edit
+class UserProvider extends ChangeNotifier {
+  final UserRepository userRepository;
+
+  UserProvider(this.userRepository);
+
+  List<UserModel> users = [];
+
+  Future<void> fetchUsers() async {
+    users = await userRepository.getUsers();
+    notifyListeners();
+  }
+}
+Lalu di UI:
+
+dart
+Copy
+Edit
+class UserScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
+
+    return Scaffold(
+      appBar: AppBar(title: Text("Users")),
+      body: userProvider.users.isEmpty
+          ? Center(child: CircularProgressIndicator())
+          : ListView.builder(
+              itemCount: userProvider.users.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title: Text(userProvider.users[index].name),
+                  subtitle: Text(userProvider.users[index].email),
+                );
+              },
+            ),
+    );
+  }
+}
+🔥 Kesimpulan
+✅ Repository Pattern bikin Flutter lebih clean dan terstruktur
+✅ Memisahkan UI, Logic, dan Data Source
+✅ Gampang ganti API ke database tanpa ganggu UI
+✅ Bisa dites lebih gampang dengan Mock Data
+
+Pakai repository pattern ini kalau aplikasi kamu sudah mulai kompleks dan butuh struktur yang lebih rapi! 🚀

@@ -1,0 +1,296 @@
+🔄 Cara Website Bekerja (Website Lifecycle)
+Ketika kamu buka website, ada beberapa hal yang terjadi di belakang layar sebelum tampil di browser.
+
+1️⃣ Browser Cari Alamat Website (DNS Resolution)
+Coba bayangin kamu mau ke rumah teman, tapi cuma tahu namanya, bukan alamatnya.
+Nah, browser juga gitu! Pas kamu ketik www.example.com, dia harus cari tahu alamat IP-nya dulu (kayak alamat rumah).
+Browser nanya ke DNS (Domain Name System) buat dapetin alamat itu.
+
+2️⃣ Browser Minta Data ke Server (HTTP Request & Response)
+Setelah tahu alamatnya, browser pergi ke rumah teman itu (server) dan bilang:
+"Hei, kasih aku halaman website ini dong!"
+Server bakal kasih file-file yang dibutuhin:
+✅ HTML → Struktur halaman (kayak rangka rumah)
+✅ CSS → Warna, ukuran, desain (kayak cat rumah & furnitur)
+✅ JavaScript → Interaksi & animasi (kayak lampu otomatis yang nyala pas kamu masuk)
+
+3️⃣ Browser Bangun Halaman (Rendering & Painting)
+Setelah dapet file-file tadi, browser mulai kerja:
+📌 Baca HTML → Buat rangka halaman (DOM)
+📌 Pasang CSS → Biar tampilannya keren
+📌 Jalankan JavaScript → Tambahin efek & interaksi
+📌 Gambar di Layar → Akhirnya website muncul!
+
+🔹 Tips biar website cepat muncul:
+
+Pakai gambar kecil (biar nggak berat)
+Gunakan caching (biar file nggak selalu di-download ulang)
+Pakai CDN (server lebih dekat, jadi akses lebih cepat)
+
+
+🔄 Cara Komponen React Bekerja (React Lifecycle)
+Kalau kamu pake React, setiap bagian kecil dari website disebut komponen. Komponen ini punya "hidup" sendiri:
+
+1️⃣ Saat Komponen Muncul (Mounting)
+Saat pertama kali muncul, React bakal:
+✅ Bikin komponen
+✅ Tampilkan ke layar
+✅ Jalankan kode pertama (misalnya ambil data dari API)
+
+🚀 Kode contoh pakai Hooks (useEffect)
+
+jsx
+Copy
+Edit
+import { useEffect } from "react";
+
+const Komponen = () => {
+  useEffect(() => {
+    console.log("Komponen baru muncul!");
+  }, []);
+
+  return <h1>Halo, Dunia!</h1>;
+};
+
+
+2️⃣ Saat Komponen Berubah (Updating)
+Kalau ada yang berubah (misalnya user klik tombol), React bakal:
+✅ Cek apa yang berubah
+✅ Update tampilan tanpa refresh seluruh halaman
+
+🚀 Kode contoh perubahan data (state)
+
+jsx
+Copy
+Edit
+import { useState, useEffect } from "react";
+
+const Komponen = () => {
+  const [angka, setAngka] = useState(0);
+
+  useEffect(() => {
+    console.log("Angka berubah jadi: " + angka);
+  }, [angka]);
+
+  return (
+    <div>
+      <p>Nilai: {angka}</p>
+      <button onClick={() => setAngka(angka + 1)}>Tambah</button>
+    </div>
+  );
+};
+
+3️⃣ Saat Komponen Hilang (Unmounting)
+Kalau user pindah halaman atau komponen nggak dipakai lagi, React bakal:
+✅ Hapus komponen
+✅ Bersihkan event yang masih jalan (biar nggak boros memori)
+
+🚀 Kode contoh membersihkan efek (useEffect return)
+
+jsx
+Copy
+Edit
+import { useEffect } from "react";
+
+const Komponen = () => {
+  useEffect(() => {
+    return () => {
+      console.log("Komponen dihapus!");
+    };
+  }, []);
+
+  return <h1>Halo, Dunia!</h1>;
+};
+
+=====================================================================================================================
+
+🔄 Apa Itu React Lifecycle?
+Lifecycle di React adalah proses hidup sebuah komponen dari pertama kali muncul, diperbarui, sampai akhirnya hilang dari layar.
+
+Setiap komponen di React melewati tiga fase utama:
+1️⃣ Mounting → Saat komponen dibuat & ditampilkan pertama kali
+2️⃣ Updating → Saat ada perubahan data atau tampilan
+3️⃣ Unmounting → Saat komponen dihapus dari layar
+
+Di dalam masing-masing fase ini, ada metode khusus yang bisa kita gunakan. 
+Kalau di Class Component, kita pakai lifecycle methods. Kalau di Function Component, kita pakai React Hooks (useEffect).
+
+
+1️⃣ Fase Mounting (Komponen Muncul di Layar)
+Ini adalah saat pertama kali komponen dibuat dan muncul di layar.
+
+📌 Di Class Component, kita pakai componentDidMount().
+📌 Di Function Component, kita pakai useEffect(() => {}, []).
+
+🚀 Contoh Class Component:
+
+jsx
+Copy
+Edit
+import React, { Component } from "react";
+
+class App extends Component {
+  componentDidMount() {
+    console.log("Komponen sudah muncul!");
+  }
+
+  render() {
+    return <h1>Halo Dunia!</h1>;
+  }
+}
+
+export default App;
+📌 componentDidMount() dijalankan sekali setelah komponen tampil.
+
+🚀 Contoh Function Component dengan useEffect
+
+jsx
+Copy
+Edit
+import { useEffect } from "react";
+
+const App = () => {
+  useEffect(() => {
+    console.log("Komponen sudah muncul!");
+  }, []);
+
+  return <h1>Halo Dunia!</h1>;
+};
+
+export default App;
+📌 useEffect(() => {}, []) dijalankan sekali saat pertama kali komponen muncul.
+
+✅ Biasanya digunakan untuk:
+
+Mengambil data dari API
+Mengatur event listener
+Menghubungkan ke database
+
+
+2️⃣ Fase Updating (Komponen Berubah)
+Fase ini terjadi saat ada perubahan data atau state di dalam komponen.
+
+📌 Di Class Component, kita pakai componentDidUpdate().
+📌 Di Function Component, kita pakai useEffect(() => {}, [dependencies]).
+
+🚀 Contoh Class Component:
+
+jsx
+Copy
+Edit
+import React, { Component } from "react";
+
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = { angka: 0 };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    console.log("Komponen diperbarui! Angka sekarang:", this.state.angka);
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Nilai: {this.state.angka}</p>
+        <button onClick={() => this.setState({ angka: this.state.angka + 1 })}>
+          Tambah
+        </button>
+      </div>
+    );
+  }
+}
+
+export default App;
+📌 componentDidUpdate() dijalankan setiap kali state atau props berubah.
+
+🚀 Contoh Function Component dengan useEffect
+
+jsx
+Copy
+Edit
+import { useState, useEffect } from "react";
+
+const App = () => {
+  const [angka, setAngka] = useState(0);
+
+  useEffect(() => {
+    console.log("Komponen diperbarui! Angka sekarang:", angka);
+  }, [angka]); // Akan berjalan setiap kali `angka` berubah
+
+  return (
+    <div>
+      <p>Nilai: {angka}</p>
+      <button onClick={() => setAngka(angka + 1)}>Tambah</button>
+    </div>
+  );
+};
+
+export default App;
+📌 useEffect(() => {}, [angka]) hanya berjalan kalau angka berubah.
+
+✅ Biasanya digunakan untuk:
+
+Menjalankan efek samping (seperti update data di server)
+Memperbarui tampilan berdasarkan state terbaru
+
+
+3️⃣ Fase Unmounting (Komponen Dihapus)
+Fase ini terjadi saat komponen dihapus dari layar atau berpindah ke halaman lain.
+
+📌 Di Class Component, kita pakai componentWillUnmount().
+📌 Di Function Component, kita pakai useEffect return.
+
+🚀 Contoh Class Component:
+
+jsx
+Copy
+Edit
+import React, { Component } from "react";
+
+class App extends Component {
+  componentWillUnmount() {
+    console.log("Komponen dihapus dari layar!");
+  }
+
+  render() {
+    return <h1>Halo Dunia!</h1>;
+  }
+}
+
+export default App;
+📌 componentWillUnmount() dijalankan sebelum komponen hilang.
+
+🚀 Contoh Function Component dengan useEffect return
+
+jsx
+Copy
+Edit
+import { useEffect } from "react";
+
+const App = () => {
+  useEffect(() => {
+    return () => {
+      console.log("Komponen dihapus dari layar!");
+    };
+  }, []);
+
+  return <h1>Halo Dunia!</h1>;
+};
+
+export default App;
+📌 useEffect return dijalankan sebelum komponen hilang dari layar.
+
+✅ Biasanya digunakan untuk:
+
+Membersihkan event listener
+Menghentikan request API
+Menghapus data dari cache
+
+
+📊 Ringkasan React Lifecycle
+Fase	Class Component	Function Component	Kapan Terjadi?
+Mounting	componentDidMount()	useEffect(() => {}, [])	Saat komponen pertama kali muncul
+Updating	componentDidUpdate()	useEffect(() => {}, [state])	Saat state/props berubah
+Unmounting	componentWillUnmount()	useEffect return	Saat komponen dihapus

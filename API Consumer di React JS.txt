@@ -1,0 +1,32 @@
+🔹 Di React, Pakai Apa Buat Connect ke API?
+Kalau di Flutter kamu biasa pakai Dio, di React ada beberapa opsi populer buat fetch data dari API:
+
+1️⃣ fetch() → Built-in JavaScript (paling dasar)
+2️⃣ Axios → Mirip Dio di Flutter, lebih fleksibel & mudah digunakan
+3️⃣ React Query → Untuk manajemen data API yang lebih efisien
+4️⃣ SWR (Stale-While-Revalidate) → Alternatif untuk fetching data dengan cache
+
+📌 Rekomendasi: Pakai Axios kalau mau yang mirip Dio.
+
+🔹 Prisma Bisa Buat Connect ke API?
+❌ Prisma bukan alat untuk connect ke API langsung.
+✅ Prisma adalah ORM (Object-Relational Mapping) buat database seperti PostgreSQL, MySQL, MongoDB.
+
+🔹 Bagaimana Prisma bekerja?
+
+Tanpa Prisma → Biasanya pakai SQL Query Manual buat CRUD database.
+Dengan Prisma → Bisa akses database dengan kode JavaScript/TypeScript tanpa perlu SQL manual.
+🔹 Jadi, Bagaimana Prisma & API Bekerja?
+Kalau di React, biasanya API dibuat dengan backend (Next.js, Express, atau NestJS) yang pakai Prisma untuk query database.
+
+🔹 Alur Umum:
+1️⃣ Frontend (React/Next.js) → Request ke API (pakai Axios/fetch)
+2️⃣ Backend (Next.js/Express) → Handle request & gunakan Prisma untuk query ke database
+3️⃣ Backend kirim response → Frontend menampilkan data
+
+📌 Kesimpulan:
+
+React pakai Axios/fetch buat connect ke API.
+Prisma cuma buat query database, bukan untuk connect ke API.
+Prisma biasanya dipakai di backend (Next.js, Express) buat ambil data lalu di-expose sebagai API ke frontend.
+Kalau kamu cloning aplikasi dan lihat Prisma, itu berarti Prisma dipakai di backend-nya, bukan di frontend React. 🚀

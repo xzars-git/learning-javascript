@@ -1,0 +1,80 @@
+🏗 1. Apa Itu Clean Architecture?
+Clean Architecture adalah pola arsitektur yang memisahkan kode berdasarkan tanggung jawabnya dengan prinsip layering.
+
+Struktur Clean Architecture biasanya seperti ini:
+
+bash
+Copy
+Edit
+lib/
+│── core/               # Constants, Shared Utilities
+│── data/               # Data Layer
+│   ├── models/         # Model Data
+│   ├── sources/        # Remote & Local Data Source
+│   ├── repositories/   # Repository Implementation
+│── domain/             # Business Logic Layer
+│   ├── repositories/   # Repository Interface
+│   ├── usecases/       # Business Logic
+│── presentation/       # UI & State Management
+│── main.dart           # Entry Point
+✅ Kelebihan Clean Architecture
+✔ Lebih scalable & maintainable
+✔ Business logic terpisah dari UI → UI bisa diganti tanpa mengubah logic
+✔ Mudah di-testing karena tiap layer bisa diuji secara terpisah
+✔ Bisa ganti data source tanpa banyak perubahan kode (misal dari API ke database lokal)
+
+❌ Kekurangan Clean Architecture
+❌ Lebih kompleks dibandingkan MVC
+❌ Banyak boilerplate code → Harus bikin banyak folder & class
+❌ Kurang cocok untuk proyek kecil
+
+🏗 2. Apa Itu MVC?
+MVC (Model-View-Controller) adalah pola arsitektur yang memisahkan aplikasi menjadi 3 bagian utama:
+
+Model → Mengelola data (API, database)
+View → UI (tampilan pengguna)
+Controller → Menghubungkan Model dan View
+Struktur MVC biasanya seperti ini:
+
+bash
+Copy
+Edit
+lib/
+│── models/             # Data models
+│── views/              # UI components
+│── controllers/        # Business logic & State management
+│── main.dart           # Entry Point
+✅ Kelebihan MVC
+✔ Lebih sederhana & mudah dipahami
+✔ Cocok untuk proyek kecil-menengah
+✔ Banyak digunakan di berbagai framework
+
+❌ Kekurangan MVC
+❌ Kurang scalable jika proyek makin besar
+❌ Bisa menyebabkan tightly coupled code → Susah di-maintain kalau terlalu banyak logic di Controller
+❌ Kurang fleksibel kalau mau ganti data source
+
+⚖ Perbandingan Clean Architecture vs MVC di React & Flutter
+Aspek	Clean Architecture	MVC
+Kompleksitas	Tinggi	Lebih sederhana
+Scalability	Sangat scalable	Kurang scalable untuk proyek besar
+Maintainability	Mudah dipelihara	Bisa sulit jika controller terlalu besar
+Testing	Mudah karena terpisah	Bisa sulit kalau logic bercampur di Controller
+Kecepatan Development	Lebih lambat awalnya karena banyak layer	Lebih cepat karena struktur simpel
+🛠 Implementasi di React & Flutter
+1️⃣ React
+
+Kalau proyek kecil → Pakai MVC
+Kalau proyek besar & kompleks → Pakai Clean Architecture
+React lebih fleksibel, bisa pakai Redux untuk state management
+2️⃣ Flutter
+
+Kalau proyek kecil → Pakai MVC atau MVVM (lebih rapi dari MVC)
+Kalau proyek besar → Pakai Clean Architecture
+Flutter cocok pakai Provider, Riverpod, atau BLoC untuk state management
+🔥 Kesimpulan
+Kalau proyek kecil & butuh cepat → Pakai MVC
+Kalau proyek besar, scalable, dan butuh clean code → Pakai Clean Architecture
+React lebih fleksibel, bisa pilih arsitektur yang sesuai kebutuhan
+Flutter lebih rapi pakai Clean Architecture, apalagi untuk proyek kompleks
+Kalau kamu persiapan interview Frontend, pastikan kamu paham dasar State Management di masing-masing arsitektur ya! 🚀
