@@ -1,0 +1,73 @@
+🔄 Apakah Framework/Libraries Lain Punya Reusable Components?
+Teknologi	Punya Reusable Components?	Catatan
+React
+Menggunakan JSX & Hooks untuk membuat komponen yang bisa digunakan ulang dengan mudah.
+
+Vue.js
+Pakai Single File Components (SFC), mirip React tapi dengan sintaks yang lebih struktural.
+
+Angular
+Pakai Decorators & Modules, lebih kompleks dibanding React & Vue.
+
+Svelte
+Pakai konsep .svelte files, lebih ringan tapi belum sepopuler React/Vue.
+
+Vanilla JS (HTML + JS biasa)
+Tidak semudah React	Bisa bikin reusable komponen pakai Class atau Web Components, tapi lebih ribet.
+
+🔄 Kenapa Konsep Reusable Components di React Lebih Unggul?
+✅ Sederhana & Fleksibel → Bisa bikin Functional Components tanpa banyak aturan.
+✅ JSX Lebih Natural → Bisa pakai HTML + JavaScript tanpa perlu banyak konfigurasi.
+✅ Ekosistem Besar → Banyak library yang mendukung komponen berbasis React, seperti Material UI, Chakra UI, dan Tailwind Components.
+✅ React Hooks (useState, useEffect) → Kelola state lebih gampang dibanding framework lain.
+
+🔥 Contoh Perbandingan Reusable Components di React vs Vue vs Angular:
+
+✅ React (Paling Simpel)
+jsx
+Copy
+Edit
+function Button({ text }) {
+  return <button className="btn">{text}</button>;
+}
+
+<Button text="Click Me" />
+
+🟢 Vue.js (Sedikit Lebih Banyak Struktur)
+vue
+Copy
+Edit
+<template>
+  <button class="btn">{{ text }}</button>
+</template>
+
+<script>
+export default {
+  props: ["text"],
+};
+</script>
+
+🔴 Angular (Paling Kompleks)
+typescript
+Copy
+Edit
+import { Component, Input } from "@angular/core";
+
+@Component({
+  selector: "app-button",
+  template: `<button class="btn">{{ text }}</button>`,
+})
+export class ButtonComponent {
+  @Input() text: string;
+}
+🚀 Kesimpulan: Kenapa React?
+📌 React lebih fleksibel & sederhana dibanding Angular
+📌 React lebih powerful & populer dibanding Svelte
+📌 Vue juga bagus, tapi React punya ekosistem lebih luas
+
+Mau lebih dalam? Selanjutnya bisa pelajari:
+✅ Props & State di React
+✅ React Hooks (useState, useEffect)
+✅ Context API untuk State Management
+
+Masih ada yang bingung? 😃
