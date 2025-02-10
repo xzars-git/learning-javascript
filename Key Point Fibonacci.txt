@@ -1,0 +1,29 @@
+📌 Key Point dalam Algoritma Fibonacci
+1️⃣ Definisi Fibonacci
+
+Setiap angka adalah jumlah dari dua angka sebelumnya:
+
+F(n) = F(n-1) + F(n-2)
+Awalan:
+
+F(0) = 0, F(1) = 1
+Contoh:
+
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+2️⃣ Metode Menghitung Fibonacci
+ 
+Rekursif Sederhana (Lambat 😴)
+Iteratif (Looping) (Cepat ⚡)
+Dynamic Programming (Memoization) (Lebih Cepat 🔥)
+Matriks Perkalian (O(log N)) (Super Cepat 🚀)
+3️⃣ Optimasi
+
+Gunakan mod untuk menghitung digit terakhir tanpa angka besar
+Gunakan penyimpanan (memoization) supaya rekursi nggak boros waktu
+Pakai logika cek Fibonacci (5𝑛² ± 4 harus kuadrat sempurna)
+🎯 Cara Mengingat Fibonacci dengan Mudah
+📌 Tiga kata kunci utama: Penjumlahan – Rekursi – Optimasi
+📌 Coba hitung angka Fibonacci kecil dulu (pakai tangan atau kode)
+📌 Fokus ke pola angka dan cara mempercepat perhitungan
+
+Kalau ada yang mau ditanya lagi, tinggal tanya aja! ✌😆

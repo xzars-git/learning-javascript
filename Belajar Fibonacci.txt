@@ -1,0 +1,213 @@
+Apa Itu Fibonacci Sequence?
+Fibonacci adalah deret angka di mana setiap angka adalah jumlah dari dua angka sebelumnya:
+
+Copy
+Edit
+0, 1, 1, 2, 3, 5, 8, 13, 21, 34, ...
+Secara matematis:
+
+𝐹 (𝑛) = 𝐹(𝑛−1) + 𝐹(𝑛−2)
+
+F(n)=F(n−1)+F(n−2)
+
+dengan F(0) = 0 dan F(1) = 1.
+
+Fibonacci dengan Rekursi (Sederhana tapi Lambat)
+
+dart
+Copy
+Edit
+int fibonacci(int n) {
+  if (n <= 1) return n;
+  return fibonacci(n - 1) + fibonacci(n - 2);
+}
+Kelemahan:
+🔴 Banyak perhitungan berulang (tidak efisien).
+
+🔥 Soal 1: Fibonacci ke-N (Iteratif vs. Rekursif vs. DP)
+💡 Deskripsi:
+Buat fungsi yang menerima bilangan n dan mengembalikan angka Fibonacci ke-n. Implementasikan dalam 3 cara:
+
+Rekursif sederhana
+Iteratif (tanpa rekursi)
+Dynamic Programming (DP) dengan memoization
+📌 Contoh Input & Output:
+
+javascript
+Copy
+Edit
+fibonacci(10) // Output: 55
+fibonacci(20) // Output: 6765
+✅ Jawaban:
+javascript
+Copy
+Edit
+// 1️⃣ Rekursif Sederhana (Lambat untuk n besar)
+function fibonacciRecursive(n) {
+    if (n <= 1) return n;
+    return fibonacciRecursive(n - 1) + fibonacciRecursive(n - 2);
+}
+
+// 2️⃣ Iteratif (Lebih cepat)
+function fibonacciIterative(n) {
+    if (n <= 1) return n;
+    let a = 0, b = 1, c;
+    for (let i = 2; i <= n; i++) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+// 3️⃣ DP dengan Memoization (Cepat untuk n besar)
+function fibonacciDP(n, memo = {}) {
+    if (n in memo) return memo[n];
+    if (n <= 1) return n;
+    memo[n] = fibonacciDP(n - 1, memo) + fibonacciDP(n - 2, memo);
+    return memo[n];
+}
+
+// Test
+console.log(fibonacciRecursive(10)); // 55
+console.log(fibonacciIterative(10)); // 55
+console.log(fibonacciDP(10)); // 55
+🔥 Soal 2: Apakah X merupakan bilangan Fibonacci?
+💡 Deskripsi:
+Buat fungsi yang mengecek apakah suatu bilangan X ada dalam deret Fibonacci atau tidak.
+Gunakan metode cek kuadrat sempurna tanpa Math.sqrt().
+
+📌 Contoh Input & Output:
+
+javascript
+Copy
+Edit
+isFibonacci(21) // Output: true
+isFibonacci(25) // Output: false
+✅ Jawaban:
+javascript
+Copy
+Edit
+// Fungsi untuk mengecek apakah bilangan adalah kuadrat sempurna tanpa Math.sqrt
+function isPerfectSquare(num) {
+    let x = 1;
+    while (x * x <= num) {
+        if (x * x === num) return true;
+        x++;
+    }
+    return false;
+}
+
+// Cek apakah bilangan Fibonacci
+function isFibonacci(n) {
+    return isPerfectSquare(5 * n * n + 4) || isPerfectSquare(5 * n * n - 4);
+}
+
+// Test
+console.log(isFibonacci(21)); // true
+console.log(isFibonacci(25)); // false
+🔥 Soal 3: Digit terakhir dari Fibonacci ke-N
+💡 Deskripsi:
+Buat fungsi yang menerima bilangan n dan mengembalikan digit terakhir dari Fibonacci ke-n.
+Jangan gunakan angka besar langsung, optimalkan dengan modulo 10.
+
+📌 Contoh Input & Output:
+
+javascript
+Copy
+Edit
+lastDigitFibonacci(10) // Output: 5
+lastDigitFibonacci(20) // Output: 5
+lastDigitFibonacci(1000000) // Output: ? (Harus cepat!)
+✅ Jawaban:
+javascript
+Copy
+Edit
+function lastDigitFibonacci(n) {
+    if (n <= 1) return n;
+    let a = 0, b = 1, c;
+    for (let i = 2; i <= n; i++) {
+        c = (a + b) % 10; // Ambil hanya digit terakhir
+        a = b;
+        b = c;
+    }
+    return b;
+}
+
+// Test
+console.log(lastDigitFibonacci(10)); // 5
+console.log(lastDigitFibonacci(20)); // 5
+console.log(lastDigitFibonacci(1000000)); // Harus tetap cepat
+🔥 Soal 4: Deret Fibonacci yang bisa dibagi K
+💡 Deskripsi:
+Diberikan angka K, cari semua bilangan Fibonacci yang bisa dibagi habis oleh K sampai batas tertentu N.
+
+📌 Contoh Input & Output:
+
+javascript
+Copy
+Edit
+fibonacciDivisible(100, 5) 
+// Output: [0, 5, 55]
+✅ Jawaban:
+javascript
+Copy
+Edit
+function fibonacciDivisible(n, k) {
+    let a = 0, b = 1, c;
+    let result = [];
+    for (let i = 0; i <= n; i++) {
+        if (a % k === 0) result.push(a);
+        c = a + b;
+        a = b;
+        b = c;
+    }
+    return result;
+}
+
+// Test
+console.log(fibonacciDivisible(100, 5)); // [0, 5, 55]
+🔥 Soal 5: Fibonacci dengan Perkalian Matriks (Optimasi O(log N))
+💡 Deskripsi:
+Implementasikan fungsi untuk menghitung Fibonacci ke-N dengan cepat menggunakan perkalian matriks (O(log N)).
+
+📌 Contoh Input & Output:
+
+javascript
+Copy
+Edit
+fibonacciFast(10) // Output: 55
+fibonacciFast(50) // Output: 12586269025
+✅ Jawaban:
+javascript
+Copy
+Edit
+function multiplyMatrix(a, b) {
+    return [
+        [a[0][0] * b[0][0] + a[0][1] * b[1][0], a[0][0] * b[0][1] + a[0][1] * b[1][1]],
+        [a[1][0] * b[0][0] + a[1][1] * b[1][0], a[1][0] * b[0][1] + a[1][1] * b[1][1]]
+    ];
+}
+
+function matrixPower(matrix, n) {
+    if (n === 1) return matrix;
+    if (n % 2 === 0) {
+        let halfPower = matrixPower(matrix, n / 2);
+        return multiplyMatrix(halfPower, halfPower);
+    } else {
+        return multiplyMatrix(matrix, matrixPower(matrix, n - 1));
+    }
+}
+
+function fibonacciFast(n) {
+    if (n <= 1) return n;
+    let baseMatrix = [[1, 1], [1, 0]];
+    let resultMatrix = matrixPower(baseMatrix, n - 1);
+    return resultMatrix[0][0];
+}
+
+// Test
+console.log(fibonacciFast(10)); // 55
+console.log(fibonacciFast(50)); // 12586269025
+Semoga soal dan jawaban ini bermanfaat! 🚀
+Kalau ada yang mau dijelaskan lebih lanjut, tanya aja! 😊
